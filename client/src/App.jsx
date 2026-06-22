@@ -129,7 +129,7 @@ Promise.all([
 }}
           />
         )}
-        <div className="relative w-full min-h-screen bg-deep-black text-white selection:bg-neon-purple/50">
+        <div className="relative w-full min-h-screen bg-deep-black text-white selection:bg-neon-purple/50 transition-all duration-500">
         <CursorRing />
           {location.pathname !== "/password-manager" && <Navbar role={role} setRole={setRole} />}
           <Routes>
