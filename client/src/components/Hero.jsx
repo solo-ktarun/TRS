@@ -121,8 +121,8 @@ const scrollToSection = (id) => {
 };
 
     return (
+        <section className="relative w-full min-h-[100svh] bg-[#050505] overflow-hidden flex flex-col lg:flex-row items-center pt-20 lg:pt-0">
 
-        <section className="relative w-full min-h-[calc(100svh-96px)] mt-24 bg-[#050505] overflow-hidden flex flex-col lg:flex-row items-center">
             {/* --- Background Atmosphere --- */}
             {/* Base dark gradient */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#020202] via-[#050505] to-[#010101] -z-20"></div>
@@ -209,7 +209,7 @@ const scrollToSection = (id) => {
 
 
             {/* --- Left Side: Content --- */}
-            <div className="w-full lg:w-[45%] lg:min-h-[calc(100svh-88px)] flex flex-col justify-start pt-16 px-6 sm:px-12 lg:pl-16 xl:pl-24 pb-16 lg:py-0 z-20 relative shrink-0">
+            <div className="w-full lg:w-[45%] lg:min-h-[100svh] flex flex-col justify-center px-6 sm:px-12 lg:pl-16 xl:pl-24 pt-10 pb-16 lg:py-0 z-20 relative shrink-0">
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
@@ -219,9 +219,9 @@ const scrollToSection = (id) => {
                     <motion.div variants={itemVariants} className="flex gap-2 sm:gap-3 mb-6 sm:mb-8 flex-wrap items-center">
                         <div className="flex items-center gap-2 pr-4 border-r border-white/20">
                             <span className="w-2 h-2 rounded-full bg-neon-purple animate-pulse shadow-[0_0_10px_#b026ff]"></span>
-                            <span className="text-[8px] sm:text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-all duration-500">ESTABLISHED 2024</span>
+                            <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-all duration-500">ESTABLISHED 2024</span>
                         </div>
-                        <span className="glassmorphism px-3 py-1.5 rounded-sm text-[8px] sm:text-xs font-semibold uppercase tracking-widest text-white/50 border border-white/10 shadow-sm hover:text-white hover:border-neon-purple/50 hover:bg-neon-purple/20 transition-all duration-500">
+                        <span className="glassmorphism px-3 py-1.5 rounded-sm text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-white/50 border border-white/10 shadow-sm hover:text-white hover:border-neon-purple/50 hover:bg-neon-purple/20 transition-all duration-500">
                             PC AUTOMOTIVE COMMUNITY
                         </span>
                     </motion.div>
@@ -229,7 +229,7 @@ const scrollToSection = (id) => {
                     {/* Main Heading */}
                     <motion.div variants={itemVariants} className="relative mb-6">
                         <div className="absolute -left-6 top-2 bottom-2 w-1 bg-gradient-to-b from-neon-purple via-electric-blue to-transparent hidden sm:block rounded-full shadow-[0_0_15px_rgba(0,229,255,0.5)]"></div>
-                        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black font-heading leading-[0.95] tracking-tight">
+                        <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black font-heading leading-[0.95] tracking-tight">
 
     <span className="block text-white">
         THE ROYAL
@@ -266,7 +266,7 @@ duration-500
                     {/* Description */}
                     <motion.p
     variants={itemVariants}
-    className="text-sm sm:text-base lg:text-lg text-white/70 max-w-xl mb-10 leading-relaxed font-light drop-shadow-md hover:text-white transition-all duration-500"
+    className="text-base sm:text-lg lg:text-xl text-white/70 max-w-xl mb-10 leading-relaxed font-light drop-shadow-md hover:text-white transition-all duration-500"
 >
 A PC-based GTA Online automotive community
 hosting theme-based car and bike meets since 2024.
@@ -340,8 +340,8 @@ presentation and community.
     "
 >
                         <div className="flex flex-col items-center">
-                            <span className="text-xs sm:text-sm font-black text-white/50 group-hover:text-white transition-colors duration-300">220+</span>
-                            <span className="text-[7px] sm:text-[8px] uppercase tracking-widest text-white/40 whitespace-nowrap group-hover:scale-110 group-hover:text-white transition-all duration-300">Members</span>
+                            <span className="text-sm sm:text-base font-black text-white/50 group-hover:text-white transition-colors duration-300">220+</span>
+                            <span className="text-[8px] sm:text-[9px] uppercase tracking-widest text-white/40 whitespace-nowrap group-hover:scale-110 group-hover:text-white transition-all duration-300">Members</span>
                         </div>
                         <div
 className="
@@ -407,7 +407,7 @@ duration-300
                         <div className="w-full sm:w-auto flex flex-col items-center sm:items-start gap-2 group">
                             <span
 className="
-text-[9px]
+text-[10px]
 
 uppercase
 tracking-[0.25em]
@@ -437,7 +437,8 @@ relative
 
 w-full sm:w-auto
 
-px-8 py-4
+px-10
+py-5
 
 overflow-hidden
 
@@ -486,7 +487,7 @@ hover:shadow-[0_0_40px_rgba(0,229,255,0.35)]
     />
     
                                 <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent -translate-x-full group-hover:animate-shimmer skew-x-12 opacity-50"></span>
-<span className="relative z-10 flex items-center gap-2">
+<span className="relative z-10 flex items-center gap-3">
 
 <div
 className="
@@ -546,7 +547,8 @@ relative
 
 w-full sm:w-auto
 
-px-8 py-4
+px-10
+py-5
 
 overflow-hidden
 
@@ -593,7 +595,7 @@ hover:shadow-[0_0_40px_rgba(176,38,255,0.35)]
         pointer-events-none
         "
     />
-                                <span className="relative z-10 flex items-center gap-2">
+                                <span className="relative z-10 flex items-center gap-3">
 
 <div
 className="
