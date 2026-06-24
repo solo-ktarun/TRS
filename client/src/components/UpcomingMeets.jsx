@@ -216,7 +216,7 @@ TRS
                         </h3>
                         <p className="text-white/50 text-sm mb-6 group-hover:text-white transition-all duration-500">Enter official dispatch interface to detail Theme, Date, Time, Location, Meet Type, Dress Code, Vehicle Requirements, Cml/Lead, Rules, and Host.</p>
                         
-                        <button onClick={() => navigate('/admin/add-meet')} className="w-full py-4 bg-neon-purple/60 hover:bg-white/80 text-white/40 group-hover:text-neon-purple text-sm font-bold uppercase tracking-widest rounded transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(176,38,255,0.4)]">
+                        <button onClick={() => navigate('/admin/add-meet')} className="w-full py-4 bg-neon-purple/40 hover:bg-neon-purple/80 text-white/40 group-hover:text-white text-sm font-bold uppercase tracking-widest rounded transition-all duration-500 shadow-[0_0_15px_rgba(176,38,255,0.4)]">
                             Open Console
                         </button>
                     </motion.div>

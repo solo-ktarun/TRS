@@ -61,11 +61,12 @@ const Navbar = ({ role, setRole }) => {
 <nav
     className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         scrolled
-            ? 'glassmorphism py-3 shadow-[0_10px_40px_rgba(0,0,0,0.4)] backdrop-blur-l'
+            ? 'glassmorphism py-3 shadow-[0_10px_40px_rgba(0,0,0,0.4)] backdrop-blur-xl'
             : 'bg-transparent py-5'
     }`}
 >
-            <div className="w-full max-w-[1800px] mx-auto px-1 lg:px-0 justify-left items-left flex">
+            <div className="w-full max-w-[1600px]
+px-6 xl:px-10 justify-left items-left flex">
                 {/* Logo */}
                 <Link to="/" onClick={(e) => handleNavClick(e, null)} className="flex items-center gap-2 sm:gap-3 cursor-pointer group flex-shrink-0 mr-4">
                     <div className="
