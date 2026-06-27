@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import TRSLogo from "/TRS_LOGO.png";
-import LoadingBackground from "/loading1.jpg";
+import loading1 from "/loading1.jpg";
+import loading2 from "/loading2.jpg";
+import loading3 from "/loading3.jpg";
+import loading4 from "/loading4.jpg";
+import loading5 from "/loading5.jpg";
 
 const loadingSteps = [
   "Initializing Crew Network...",
@@ -29,9 +33,47 @@ const crewStats = [
   },
 ];
 
+const backgrounds = [
+    loading1,
+    loading2,
+    loading3,
+    loading4,
+    loading5
+];
+
+const glowThemes = [
+
+{
+left:"bg-neon-purple/70",
+right:"bg-electric-blue/70"
+},
+
+{
+left:"bg-red-500/60",
+right:"bg-orange-400/60"
+},
+
+{
+left:"bg-sky-500/70",
+right:"bg-cyan-400/70"
+},
+
+{
+left:"bg-fuchsia-500/60",
+right:"bg-violet-500/60"
+},
+
+{
+left:"bg-purple-700/70",
+right:"bg-blue-500/60"
+}
+
+];
+
 const LoadingScreen = ({ isLoading }) => {
   const [progress, setProgress] = useState(0);
-  const [visible, setVisible] = useState(true);
+const [visible, setVisible] = useState(true);
+const [backgroundIndex, setBackgroundIndex] = useState(0);
 
   const step = useMemo(() => {
     if (progress >= 100) return loadingSteps.length - 1;
@@ -41,6 +83,22 @@ const LoadingScreen = ({ isLoading }) => {
       loadingSteps.length - 2
     );
   }, [progress]);
+
+useEffect(() => {
+
+    if (!visible) return;
+
+    const interval = setInterval(() => {
+
+        setBackgroundIndex((prev) =>
+            (prev + 1) % backgrounds.length
+        );
+
+    }, 3000);
+
+    return () => clearInterval(interval);
+
+}, [visible]);
 
   useEffect(() => {
     if (!visible) return;
@@ -107,29 +165,58 @@ return (
     "
 />
 
-            <img
-    src={LoadingBackground}
+           <AnimatePresence mode="sync">
+
+<motion.img
+    key={backgroundIndex}
+    src={backgrounds[backgroundIndex]}
     alt=""
+
+    initial={{
+        opacity:0,
+        scale:1.15
+    }}
+
+    animate={{
+        opacity:.44,
+        scale:1.08,
+        x:[-20,20,-20],
+        y:[10,-10,10]
+    }}
+
+    exit={{
+        opacity:0,
+        scale:1
+    }}
+
+    transition={{
+        opacity:{duration:1.2},
+        scale:{duration:18},
+        x:{
+            duration:18,
+            repeat:Infinity,
+            ease:"linear"
+        },
+        y:{
+            duration:18,
+            repeat:Infinity,
+            ease:"linear"
+        }
+    }}
+
     className="
-        absolute
-        inset-0
-
-        h-full
-        w-full
-
-        object-cover
-
-        opacity-20
-
-        blur-[2px]
-
-        scale-105
-
-        select-none
-
-        pointer-events-none
-    "
+absolute
+inset-0
+w-full
+h-full
+object-cover
+blur-[2px]
+pointer-events-none
+select-none
+"
 />
+
+</AnimatePresence>
 
             {/* Purple Glow */}
 
@@ -142,7 +229,7 @@ return (
                     duration: 8,
                     repeat: Infinity,
                 }}
-                className="absolute -left-40 top-1/2 h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-neon-purple/70 blur-[120px] opacity-20"
+                className={`absolute -left-40 top-1/2 h-[520px] w-[520px] -translate-y-1/2 rounded-full blur-[120px] opacity-20 ${glowThemes[backgroundIndex].left}`}
             />
 
             {/* Blue Glow */}
@@ -156,7 +243,7 @@ return (
                     duration: 9,
                     repeat: Infinity,
                 }}
-                className="absolute -right-40 top-1/2 h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-electric-blue/70 blur-[120px] opacity-20"
+                className={`absolute -left-40 top-1/2 h-[520px] w-[520px] -translate-y-1/2 rounded-full blur-[120px] opacity-20 ${glowThemes[backgroundIndex].right}`}
             />
 
             {/* Moving Grid */}
@@ -172,6 +259,17 @@ return (
                 }}
                 className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(rgba(255,255,255,0.10)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.10)_1px,transparent_1px)] bg-[size:60px_60px]"
             />
+
+            <div
+className="
+absolute
+inset-0
+pointer-events-none
+opacity-[0.035]
+mix-blend-soft-light
+bg-[url('/noise.png')]
+"
+/>
 
             {/* Main */}
 
