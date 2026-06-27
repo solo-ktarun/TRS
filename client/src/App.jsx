@@ -30,6 +30,7 @@ import Memes from './pages/Memes';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import { API_URL } from './config';
 import CursorRing from './components/CursorRing';
+import FooterBackground from "/footer.png";
 
 function App() {
   const location = useLocation();
@@ -224,6 +225,35 @@ Promise.all([
 
     </div>
 
+    {/* Background Image */}
+
+<div className="absolute inset-0 overflow-hidden">
+
+    <img
+        src={FooterBackground}
+        alt=""
+        className="
+    w-full
+    h-full
+    object-cover
+
+    opacity-[0.75]
+
+    grayscale
+
+    pointer-events-none
+
+    select-none
+
+    animate-footer-bg
+"
+    />
+
+<div className="absolute inset-0 bg-gradient-to-b from-deep-black via-deep-black/40 to-deep-black" />
+
+<div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-deep-black via-deep-black/90 to-transparent" />
+</div>
+
     <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
 
         {/* Crew Name */}
@@ -348,7 +378,7 @@ hover:border-neon-purple/40
 
 hover:-translate-y-3
 hover:scale-[1.03]
-
+hover:backdrop-blur-md
 transition-all
 duration-500
 
@@ -358,7 +388,7 @@ group
     <div className="
 absolute
 -top-10
--right-10
+-left-10
 
 w-32
 h-32
@@ -372,7 +402,6 @@ blur-3xl
 opacity-0
 
 group-hover:opacity-100
-
 transition-all
 duration-700
 "/>
@@ -398,6 +427,7 @@ duration-500
 
 group-hover:scale-125
 group-hover:rotate-12
+group-hover:text-white/20
 "
 >
 TRS
@@ -438,6 +468,7 @@ hover:border-electric-blue/40
 
 hover:-translate-y-3
 hover:scale-[1.03]
+hover:backdrop-blur-md
 
 transition-all
 duration-500
@@ -448,7 +479,7 @@ group
     <div className="
 absolute
 -top-10
--right-10
+-left-10
 
 w-32
 h-32
@@ -488,6 +519,7 @@ duration-500
 
 group-hover:scale-125
 group-hover:rotate-12
+group-hover:text-white/20
 "
 >
 TRS
@@ -526,6 +558,7 @@ hover:border-neon-green/40
 
 hover:-translate-y-3
 hover:scale-[1.03]
+hover:backdrop-blur-md
 
 transition-all
 duration-500
@@ -536,7 +569,7 @@ group
     <div className="
 absolute
 -top-10
--right-10
+-left-10
 
 w-32
 h-32
@@ -576,6 +609,7 @@ duration-500
 
 group-hover:scale-125
 group-hover:rotate-12
+group-hover:text-white/20
 "
 >
 TRS
@@ -610,10 +644,11 @@ border-white/10
 
 bg-white/[0.02]
 
-hover:border-white/40
+hover:border-oracle-gold/40
 
 hover:-translate-y-3
 hover:scale-[1.03]
+hover:backdrop-blur-md
 
 transition-all
 duration-500
@@ -624,14 +659,14 @@ group
     <div className="
 absolute
 -top-10
--right-10
+-left-10
 
 w-32
 h-32
 
 rounded-full
 
-bg-white
+bg-oracle-gold
 
 blur-3xl
 
@@ -664,6 +699,7 @@ duration-500
 
 group-hover:scale-125
 group-hover:rotate-12
+group-hover:text-white/20
 "
 >
 TRS
@@ -674,11 +710,11 @@ group-hover:rotate-12 transition">
                     🎮
                 </div>
 
-                <h3 className="text-5xl group-hover:scale-125 group-hover:rotate-12 font-black bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r from-white to-black transition">
+                <h3 className="text-5xl group-hover:scale-125 group-hover:rotate-12 font-black bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r from-oracle-gold to-black transition">
                     PC
                 </h3>
 
-                <p className="mt-2 text-xs uppercase tracking-[0.3em] group-hover:rotate-12 text-white/40 group-hover:text-white transition">
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] group-hover:rotate-12 text-white/40 group-hover:text-oracle-gold transition">
                     Platform
                 </p>
 
