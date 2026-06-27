@@ -5,7 +5,9 @@ const ValidCar = require('../models/ValidCar');
 // Get all
 router.get('/', async (req, res) => {
     try {
-        const cars = await ValidCar.find().lean();
+        const cars = await ValidCar.find()
+    .sort({ order: 1, createdAt: -1 })
+    .lean();
         res.json(cars);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -13,14 +15,50 @@ router.get('/', async (req, res) => {
 });
 
 // Add new
+// Add Registry
 router.post('/', async (req, res) => {
-    const { title, vehicles, imageUrl, isValid } = req.body;
     try {
-        const newCar = new ValidCar({ title, vehicles, imageUrl, isValid });
-        await newCar.save();
-        res.status(201).json(newCar);
+
+        let {
+            title,
+            description,
+            vehicles,
+            imageUrl,
+            isValid
+        } = req.body;
+
+        title = (title || "").trim();
+        description = (description || "").trim();
+        vehicles = (vehicles || "").trim();
+        imageUrl = (imageUrl || "").trim();
+
+        if (!title) {
+            return res.status(400).json({
+                message: "Meet Topic is required."
+            });
+        }
+
+        const count = await ValidCar.countDocuments();
+
+        const newRegistry = await ValidCar.create({
+            title,
+            description,
+            vehicles,
+            imageUrl,
+            isValid,
+            order: count
+        });
+
+        res.status(201).json(newRegistry);
+
     } catch (err) {
-        res.status(400).json({ message: err.message });
+
+        console.error(err);
+
+        res.status(500).json({
+            message: err.message
+        });
+
     }
 });
 
