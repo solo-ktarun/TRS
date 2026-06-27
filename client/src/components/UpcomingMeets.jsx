@@ -21,6 +21,7 @@ import { createPortal } from 'react-dom';
 import { API_URL } from '../config';
 import { logAdminAction } from '../utils/logger';
 import LazyImage from './LazyImage';
+import universalImage from '/universal.jpg';
 
 const UpcomingMeets = ({ isAdmin }) => {
     const [meets, setMeets] = useState([]);
@@ -191,14 +192,55 @@ TRS
     </p>
 
 </div>
-                <div className="flex flex-col sm:flex-row gap-4 group">
+                <div className="flex flex-col sm:flex-row gap-2">
                     <button 
                         onClick={() => navigate('/previous-meets')}
-                        className="flex items-center justify-center gap-2 px-6 py-3 bg-black border border-white/20 rounded-full group-hover:tracking-[0.25em] group-hover:text-neon-purple group-hover:border-neon-purple group-hover:bg-white transition-all duration-500 font-bold tracking-widest text-sm uppercase whitespace-nowrap"
+                        className="flex items-center justify-center gap-2 px-6 py-3 bg-black border border-white/20 rounded-full hover:tracking-[0.25em] hover:text-neon-purple hover:border-neon-purple hover:bg-white transition-all duration-500 font-bold tracking-widest text-sm uppercase whitespace-nowrap group"
                     >
                         <Clock size={18} className="text-white/70 group-hover:text-neon-purple transition-all duration-500" />
                         Previous Meets
                     </button>
+
+                    <button
+    onClick={() => navigate('/valid-cars')}
+    className="
+    flex
+    items-center
+    justify-center
+    gap-2
+
+    px-6
+    py-3
+
+    rounded-full
+
+    border
+    border-neon-purple/20
+
+    bg-neon-purple/5
+
+    hover:bg-neon-purple
+    hover:border-neon-purple
+
+    text-neon-purple
+    hover:text-white
+
+    font-bold
+    text-sm
+
+    uppercase
+    tracking-widest
+
+    transition-all
+    duration-500
+
+    hover:tracking-[0.2em]
+    "
+>
+    <Car size={18} />
+
+    Valid Vehicle
+</button>
                 </div>
             </div>
 
@@ -254,10 +296,19 @@ flex-col
 "
                     >
                         {/* Background Image on Card */}
-                        <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700">
-                              <LazyImage src={meet.image} fallbackSrc={'https://images.unsplash.com/photo-1511407397940-d57f68e81203?w=800&auto=format&fit=crop'} variant="card" alt="Meet Thumbnail" className="grayscale group-hover:grayscale-0" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-deep-black via-deep-black/80 to-transparent pointer-events-none"></div>
-                        </div>
+                        <div className="absolute inset-0 z-0 overflow-hidden opacity-20 transition-opacity duration-700 group-hover:opacity-40">
+
+    <LazyImage
+        src={meet.image}
+        fallbackSrc={universalImage}
+        variant="card"
+        alt="Meet Thumbnail"
+        className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:scale-110 group-hover:grayscale-0"
+    />
+
+    <div className="absolute inset-0 bg-gradient-to-t from-deep-black via-deep-black/80 to-transparent" />
+
+</div>
 
                         {/* Subtle glow effect behind card */}
                         <div className="absolute top-0 right-0 w-32 h-32 bg-neon-purple/10 rounded-full blur-3xl -z-10 group-hover:bg-neon-purple/20 transition-all duration-500"></div>
@@ -475,7 +526,7 @@ shadow-lg
 
                                 {/* Modal Header / Cover Image */}
                                 <div className="relative w-full h-64 md:h-80 shrink-0 group">
-                                      <LazyImage src={selectedMeet.image} variant="detail" fallbackSrc={'https://images.unsplash.com/photo-1511407397940-d57f68e81203?w=800&auto=format&fit=crop'} className="grayscale group-hover:grayscale-0" alt="Cover" />
+                                      <LazyImage src={selectedMeet.image} variant="detail" fallbackSrc={universalImage} className="grayscale group-hover:grayscale-0" alt="Cover" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                                     <div className="absolute bottom-0 left-0 p-8 w-full">
                                         <div className="flex flex-wrap gap-2 mb-4">

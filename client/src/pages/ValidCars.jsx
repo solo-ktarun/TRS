@@ -5,6 +5,7 @@ import { Trash2, Edit2, CheckCircle, XCircle, Download, FileText } from 'lucide-
 import { API_URL } from '../config';
 import { logAdminAction } from '../utils/logger';
 import LazyImage from '../components/LazyImage';
+import UniversalImage from '/universal.jpg'
 
 const ValidCars = ({ isAdmin }) => {
     const navigate = useNavigate();
@@ -18,13 +19,17 @@ const ValidCars = ({ isAdmin }) => {
     // Pagination controls for both lists
     const [visibleValidCount, setVisibleValidCount] = useState(12);
     const [visibleInvalidCount, setVisibleInvalidCount] = useState(12);
+    const [search, setSearch] = useState("");
+const [filter, setFilter] = useState("all");
+const [expandedCards, setExpandedCards] = useState({});
 
     const [formData, setFormData] = useState({
-        carName: '',
-        description: '',
-        imageUrl: '',
-        isValid: true
-    });
+    title: '',
+    description: '',
+    vehicles: '',
+    imageUrl: '',
+    isValid: true
+});
 
 const fetchCarsAndSettings = async () => {
         try {
@@ -93,47 +98,103 @@ const fetchCarsAndSettings = async () => {
         }
     };
 
-    const handleAddOrUpdate = async (e) => {
-        e.preventDefault();
-        try {
-            if (editingId) {
-                const res = await fetch(`${API_URL}/valid-cars/${editingId}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-                if (res.ok) {
-                    await logAdminAction('Updated Car Status', `Edited ${formData.carName}`);
-                    setEditingId(null);
-                    setFormData({ carName: '', description: '', imageUrl: '', isValid: true });
-                    fetchCarsAndSettings();
-                }
-            } else {
-                const res = await fetch(`${API_URL}/valid-cars`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-                if (res.ok) {
-                    await logAdminAction('Added Car to List', `Added ${formData.carName} as ${formData.isValid ? 'Valid' : 'Invalid'}`);
-                    setFormData({ carName: '', description: '', imageUrl: '', isValid: true });
-                    fetchCarsAndSettings();
-                }
-            }
-        } catch (err) {
-            console.error("Error saving car:", err);
-        }
+const handleAddOrUpdate = async (e) => {
+
+    e.preventDefault();
+
+    const payload = {
+        title: formData.title.trim(),
+        description: formData.description.trim(),
+        vehicles: formData.vehicles.trim(),
+        imageUrl: formData.imageUrl.trim(),
+        isValid: formData.isValid
     };
+
+    if (!payload.title) {
+        alert("Meet Topic is required.");
+        return;
+    }
+
+    try {
+
+        const url = editingId
+            ? `${API_URL}/valid-cars/${editingId}`
+            : `${API_URL}/valid-cars`;
+
+        const method = editingId
+            ? "PUT"
+            : "POST";
+
+        const res = await fetch(url, {
+
+            method,
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(payload)
+
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+
+            alert(data.message);
+
+            return;
+
+        }
+
+        await logAdminAction(
+
+            editingId
+                ? "Updated Registry"
+                : "Published Registry",
+
+            payload.title
+
+        );
+
+        setEditingId(null);
+
+        setFormData({
+
+            title: "",
+
+            description: "",
+
+            vehicles: "",
+
+            imageUrl: "",
+
+            isValid: true
+
+        });
+
+        fetchCarsAndSettings();
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert("Something went wrong.");
+
+    }
+
+};
 
     const handleEdit = (car) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setEditingId(car._id);
         setFormData({
-            carName: car.carName,
-            description: car.description,
-            imageUrl: car.imageUrl || '',
-            isValid: car.isValid
-        });
+    title: car.title,
+    description: car.description || '',
+    vehicles: car.vehicles || '',
+    imageUrl: car.imageUrl || '',
+    isValid: car.isValid
+});
     };
 
     const handleDelete = async (id, carName) => {
@@ -151,13 +212,79 @@ const fetchCarsAndSettings = async () => {
 
     const cancelEdit = () => {
         setEditingId(null);
-        setFormData({ carName: '', description: '', imageUrl: '', isValid: true });
+        setFormData({
+    title: '',
+    description: '',
+    vehicles: '',
+    imageUrl: '',
+    isValid: true
+});
     };
+const filteredCars = cars.filter((car) => {
 
-    const validCarsList = cars.filter(c => c.isValid);
-    const invalidCarsList = cars.filter(c => !c.isValid);
+    const query = search.toLowerCase();
 
-    const fallBackImage = 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=800';
+    const matchesSearch =
+        (car.title || "")
+            .toLowerCase()
+            .includes(query)
+
+        ||
+
+        (car.description || "")
+            .toLowerCase()
+            .includes(query)
+
+        ||
+
+        (car.vehicles || "")
+            .toLowerCase()
+            .includes(query);
+
+    const matchesFilter =
+
+        filter === "all"
+
+        ||
+
+        (filter === "approved" && car.isValid)
+
+        ||
+
+        (filter === "restricted" && !car.isValid);
+
+    return matchesSearch && matchesFilter;
+
+});
+
+const validCarsList = filteredCars.filter(car => car.isValid);
+
+const invalidCarsList = filteredCars.filter(car => !car.isValid);
+
+    const totalVehicles = cars.reduce((count, car) => {
+
+    return count +
+        (car.vehicles || "")
+            .split("\n")
+            .filter(v => v.trim())
+            .length;
+
+}, 0);
+
+    const fallBackImage = UniversalImage;
+
+    const vehicleCount =
+formData.vehicles
+.split("\n")
+.filter(v => v.trim() !== "")
+.length;
+
+const toggleCard = (id) => {
+    setExpandedCards((prev) => ({
+        ...prev,
+        [id]: !prev[id],
+    }));
+};
 
     return (
         <div className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto min-h-screen">
@@ -177,6 +304,91 @@ const fetchCarsAndSettings = async () => {
         Check the list below to see which vehicles are permitted and which are restricted for the current meet.
     </p>
 </motion.div>
+
+<div className="sticky top-24 z-30 mb-8">
+
+    <div className="glass-panel rounded-2xl p-5">
+
+        <input
+            type="text"
+            placeholder="Search Topic, Vehicle or Description..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="
+                w-full
+
+                bg-transparent
+
+                text-white
+
+                placeholder:text-white/35
+
+                outline-none
+
+                text-sm
+
+                tracking-wide
+            "
+        />
+
+    </div>
+
+</div>
+
+<div className="flex flex-wrap justify-center gap-3 mb-12">
+
+    {[
+        {
+            id: "all",
+            label: "All Topics"
+        },
+        {
+            id: "approved",
+            label: "Approved"
+        },
+        {
+            id: "restricted",
+            label: "Restricted"
+        }
+    ].map((item) => (
+
+        <button
+            key={item.id}
+            onClick={() => setFilter(item.id)}
+            className={`
+                px-5
+
+                py-2
+
+                rounded-full
+
+                uppercase
+
+                text-xs
+
+                tracking-[0.25em]
+
+                font-bold
+
+                transition-all
+
+                duration-300
+
+                ${
+                    filter === item.id
+                        ? "bg-neon-purple text-white border border-neon-purple shadow-[0_0_20px_rgba(176,38,255,.45)]"
+                        : "glass-panel border border-white/10 text-white/60 hover:border-neon-purple/40 hover:text-white"
+                }
+            `}
+        >
+
+            {item.label}
+
+        </button>
+
+    ))}
+
+</div>
 
 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
 
@@ -199,20 +411,25 @@ const fetchCarsAndSettings = async () => {
     </div>
 
     <div className="glass-panel p-4 text-center">
-        <div className="text-2xl font-black text-electric-blue">
-            TRS
-        </div>
-        <div className="text-xs uppercase tracking-widest text-white/50">
-            Registry
-        </div>
+<div className="text-2xl font-black text-electric-blue">
+
+    {totalVehicles}
+
+</div>
+
+<div className="text-xs uppercase tracking-widest text-white/50">
+
+    Total Vehicles
+
+</div>
     </div>
 
     <div className="glass-panel p-4 text-center">
-        <div className="text-2xl font-black text-[#FFD166]">
+        <div className="text-xl font-black text-oracle-gold">
             Live
         </div>
         <div className="text-xs uppercase tracking-widest text-white/50">
-            Status
+            Registry Status
         </div>
     </div>
 
@@ -267,7 +484,6 @@ const fetchCarsAndSettings = async () => {
                         <input 
                             type="url" 
                             placeholder="Cloudinary PDF URL" 
-                            required
                             className="flex-1 bg-black/50 border border-white/10 rounded px-4 py-3 text-white focus:border-neon-purple outline-none"
                             value={newPdfUrl}
                             onChange={e => setNewPdfUrl(e.target.value)}
@@ -295,41 +511,95 @@ const fetchCarsAndSettings = async () => {
                     className="mb-16 glass-panel p-6 rounded-lg border-2 border-neon-purple/30 max-w-3xl mx-auto relative"
                 >
                     <h3 className="text-xl font-bold mb-4 font-heading text-neon-purple">
-                        Admin Controls: {editingId ? 'Edit Car Details' : 'Add Car'}
+                        TRS Vehicle Registry Console: {editingId
+    ? "Update Meet Topic"
+    : "Publish Meet Topic"}
                     </h3>
-                    <form onSubmit={handleAddOrUpdate} className="space-y-4">
+                    <form onSubmit={(e) => {
+
+        console.log(formData);
+
+        handleAddOrUpdate(e);
+
+    }} className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input 
-                                type="text" 
-                                placeholder="Car Name" 
-                                required
-                                className="w-full bg-black/50 border border-white/10 rounded px-4 py-3 text-white focus:border-neon-purple outline-none"
-                                value={formData.carName}
-                                onChange={e => setFormData({...formData, carName: e.target.value})}
-                            />
+                            <input
+    type="text"
+    placeholder="Meet Topic"
+    className="w-full bg-black/50 border border-white/10 rounded px-4 py-3 text-white focus:border-neon-purple outline-none"
+    value={formData.title}
+    onChange={(e) =>
+    setFormData(prev => ({
+        ...prev,
+        title: e.target.value
+    }))
+}
+/>
                             <input 
                                 type="url" 
                                 placeholder="Image URL (Optional)" 
                                 className="w-full bg-black/50 border border-white/10 rounded px-4 py-3 text-white focus:border-neon-purple outline-none"
                                 value={formData.imageUrl}
-                                onChange={e => setFormData({...formData, imageUrl: e.target.value})}
+                                onChange={(e) =>
+    setFormData(prev => ({
+        ...prev,
+        imageUrl: e.target.value
+    }))
+}
                             />
                         </div>
                         <textarea 
                             placeholder="Description (e.g. Allowed modifications, exact trim requirements)" 
-                            required
                             className="w-full bg-black/50 border border-white/10 rounded px-4 py-3 text-white focus:border-neon-purple outline-none h-24"
                             value={formData.description}
-                            onChange={e => setFormData({...formData, description: e.target.value})}
+                            onChange={(e) =>
+    setFormData(prev => ({
+        ...prev,
+        description: e.target.value
+    }))
+}
                         />
+
+    <label className="block mb-2 text-xs uppercase tracking-[0.3em] text-white/40">
+
+        Vehicle List
+
+    </label>
+
+    <textarea
+        placeholder={`Turismo Omaggio
+Ignus
+JB700
+Monroe
+Stinger TT
+Stirling GT`}
+        className="w-full bg-black/50 border border-white/10 rounded px-4 py-3 text-white focus:border-neon-purple outline-none h-48"
+        value={formData.vehicles}
+        onChange={(e) =>
+            setFormData(prev => ({
+    ...prev,
+    vehicles: e.target.value,
+}))
+        }
+    />
+<div className="mt-2 text-xs text-neon-purple">
+
+    {vehicleCount}
+
+    {vehicleCount === 1 ? " Vehicle" : " Vehicles"}
+
+</div>
                         <div className="flex items-center gap-4">
                             <label className="flex items-center gap-2 cursor-pointer">
                                 <input 
                                     type="radio" 
                                     checked={formData.isValid === true} 
-                                    onChange={() => setFormData({...formData, isValid: true})}
+                                    onChange={() => setFormData(prev => ({
+    ...prev,
+    isValid: true
+}))}
                                 />
-                                <span className="text-green-400 font-bold">Valid Car</span>
+                                <span className="text-green-400 font-bold">Approved Vehicles</span>
                             </label>
                             <label className="flex items-center gap-2 cursor-pointer">
                                 <input 
@@ -337,16 +607,123 @@ const fetchCarsAndSettings = async () => {
                                     checked={formData.isValid === false} 
                                     onChange={() => setFormData({...formData, isValid: false})}
                                 />
-                                <span className="text-neon-red font-bold">Invalid Car</span>
+                                <span className="text-neon-red font-bold">Restricted Vehicles</span>
                             </label>
                         </div>
+
+                        {/* Live Preview */}
+
+<div className="glass-panel border border-neon-purple/20 rounded-xl p-6 mt-6">
+
+    <div className="flex items-center justify-between mb-5">
+
+        <h4 className="text-sm font-bold uppercase tracking-[0.35em] text-neon-purple">
+
+            Live Preview
+
+        </h4>
+
+        <span
+            className={`text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full ${
+                formData.isValid
+                    ? "bg-neon-green/20 text-neon-green border border-neon-green/30"
+                    : "bg-neon-red/20 text-neon-red border border-neon-red/30"
+            }`}
+        >
+
+            {formData.isValid ? "Approved" : "Restricted"}
+
+        </span>
+
+    </div>
+
+    <h3 className="text-3xl font-black font-heading mb-3">
+
+        {formData.title || "Meet Topic"}
+
+    </h3>
+
+    <p className="text-white/60 mb-6 whitespace-pre-wrap">
+
+        {formData.description || "Vehicles will appear here..."}
+
+    </p>
+
+    <div className="flex flex-wrap gap-2">
+
+        {formData.vehicles
+            .split("\n")
+            .filter(v => v.trim() !== "")
+            .slice(0, 12)
+            .map((vehicle, index) => (
+
+                <span
+                    key={index}
+                    className="
+                        px-3
+                        py-2
+
+                        rounded-lg
+
+                        glass-panel
+
+                        text-xs
+
+                        font-semibold
+
+                        tracking-wide
+
+                        hover:border-neon-purpl
+                        hover:border-neon-purple
+
+                        hover:bg-neon-purple
+                        
+                        hover:text-white
+
+                        transition-all
+
+                        duration-500
+                    "
+                >
+
+                    {vehicle}
+
+                </span>
+
+            ))}
+
+    </div>
+
+    {formData.vehicles
+        .split("\n")
+        .filter(v => v.trim() !== "").length > 12 && (
+
+        <div className="mt-4 text-neon-purple text-sm font-bold">
+
+            +
+
+            {" "}
+
+            {formData.vehicles
+                .split("\n")
+                .filter(v => v.trim() !== "").length - 12}
+
+            {" "}
+
+            More Vehicles
+
+        </div>
+
+    )}
+
+</div>
                         
                         <div className="flex gap-4 mt-4">
                             <button type="submit" className="flex-1 py-3 bg-neon-purple/20 text-neon-purple hover:bg-neon-purple hover:text-white border border-neon-purple font-bold tracking-widest uppercase rounded transition-colors">
-                                {editingId ? 'Update Car Details' : 'Add Car to List'}
+                                {editingId ? 'Update Registry' : 'Publish Registry'}
                             </button>
                             {editingId && (
-                                <button type="button" onClick={cancelEdit} className="py-3 px-6 bg-black/50 hover:bg-white/10 text-white border border-white/20 font-bold tracking-widest uppercase rounded transition-colors">
+                                <button type="button" onClick={cancelEdit} className="py-3 px-6 bg-black/10 hover:bg-neon-red/80 hover:text-white text-neon-red border border-neon-red/20 font-bold tracking-widest uppercase rounded transition-all duration-300">
                                     Cancel
                                 </button>
                             )}
@@ -408,7 +785,7 @@ backdrop-blur-md
 ">
                                                             <Edit2 size={16} />
                                                         </button>
-                                                        <button onClick={() => handleDelete(car._id, car.carName)} className="
+                                                        <button onClick={() => handleDelete(car._id, car.title)} className="
 p-2
 
 bg-black/60
@@ -429,18 +806,156 @@ backdrop-blur-md
                                                         </button>
                                                     </div>
                                                 )}
-                                                <LazyImage src={car.imageUrl} fallbackSrc={fallBackImage} variant="card" alt={car.carName} className="group-hover:scale-110 transition-transform duration-700 saturate-50 group-hover:saturate-100" />
+                                                <LazyImage src={car.imageUrl} fallbackSrc={fallBackImage} variant="card" alt={car.title} className="group-hover:scale-110 transition-transform duration-700 saturate-50 group-hover:saturate-100" />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-deep-black via-transparent to-transparent opacity-90"></div>
                                             </div>
                                             <div className="p-6 relative z-10 flex-1 flex flex-col">
                                                 <div className="mb-4">
-                                                    <h3 className="text-2xl font-bold font-heading text-white mb-1 group-hover:text-glow-green transition-all">{car.carName}</h3>
+                                                    <h3 className="text-2xl font-bold font-heading text-white mb-1 group-hover:text-glow-green transition-all">{car.title}</h3>
                                                 </div>
                                                 <div className="space-y-3 mb-2 flex-1">
                                                     <div>
-                                                        <p className="text-[10px] text-white/40 uppercase tracking-wider mb-1">Details</p>
-                                                        <p className="text-sm italic text-white/70 whitespace-pre-wrap">{car.description}</p>
-                                                    </div>
+
+    <div className="flex items-center justify-between mb-3">
+
+        <p className="text-[10px] uppercase tracking-[0.3em] text-white/40">
+
+            Registry
+
+        </p>
+
+        <span className="text-[11px] text-neon-purple font-bold">
+
+            {car.vehicles
+                .split("\n")
+                .filter(v => v.trim() !== "")
+                .length}
+
+            {" "}Vehicles
+
+        </span>
+
+    </div>
+
+    <p className="text-sm text-white/70 leading-relaxed mb-5 whitespace-pre-wrap">
+
+        {car.description}
+
+    </p>
+
+
+    <div
+    className={`
+        flex
+        flex-wrap
+        gap-2
+
+        overflow-hidden
+
+        transition-all
+        duration-500
+
+        ${
+            expandedCards[car._id]
+                ? ""
+                : "max-h-[96px]"
+        }
+    `}
+>
+
+        {(car.vehicles || "")
+    .split("\n")
+    .filter(v => v.trim() !== "")
+    .slice(
+        0,
+        expandedCards[car._id]
+            ? undefined
+            : 8
+    )
+    .map((vehicle, index) => (
+
+                <span
+                    key={index}
+                    className="
+                        px-3
+
+                        py-2
+
+                        rounded-lg
+
+                        bg-white/5
+
+                        border
+
+                        border-white/10
+
+                        text-xs
+
+                        text-neon-purple
+
+                        font-semibold
+
+                        hover:border-neon-purple
+
+                        hover:bg-neon-purple
+                        
+                        hover:text-white
+
+                        transition-all
+
+                        duration-500
+                    "
+                >
+
+                    {vehicle}
+
+                </span>
+
+            ))}
+
+    </div>
+
+    {(car.vehicles || "")
+    .split("\n")
+    .filter(v => v.trim() !== "")
+    .length > 8 && (
+
+        <button
+
+    onClick={() => toggleCard(car._id)}
+
+    className="
+        mt-5
+        w-full
+        rounded-xl
+        border
+        border-white/10
+        bg-white/5
+        py-3
+        text-xs
+        font-bold
+        uppercase
+        tracking-[0.3em]
+        transition-all
+        hover:border-neon-purple
+        hover:bg-neon-purple/10
+    "
+
+>
+
+    {expandedCards[car._id]
+
+        ? "▲ Show Less"
+
+        : "▼ Show All Vehicles"}
+
+</button>
+
+)}
+
+
+
+</div>
                                                     {isAdmin && car.sourceLibraryId && (
                                                         <div className="mt-2">
                                                             <span className="text-[10px] py-1 px-2 border border-neon-blue/30 text-neon-blue bg-neon-blue/10 rounded uppercase tracking-wider font-bold">
@@ -508,23 +1023,139 @@ duration-300
                                                         <button onClick={() => handleEdit(car)} className="p-2 bg-black/60 hover:bg-electric-blue/80 text-white rounded-full transition-colors backdrop-blur-md">
                                                             <Edit2 size={16} />
                                                         </button>
-                                                        <button onClick={() => handleDelete(car._id, car.carName)} className="p-2 bg-black/60 hover:bg-neon-red/80 text-white rounded-full transition-colors backdrop-blur-md">
+                                                        <button onClick={() => handleDelete(car._id, car.title)} className="p-2 bg-black/60 hover:bg-neon-red/80 text-white rounded-full transition-colors backdrop-blur-md">
                                                             <Trash2 size={16} />
                                                         </button>
                                                     </div>
                                                 )}
-                                                <LazyImage src={car.imageUrl} fallbackSrc={fallBackImage} variant="card" alt={car.carName} className="group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100" />
+                                                <LazyImage src={car.imageUrl} fallbackSrc={fallBackImage} variant="card" alt={car.title} className="group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100" />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-deep-black via-transparent to-transparent opacity-90"></div>
                                             </div>
                                             <div className="p-6 relative z-10 flex-1 flex flex-col">
                                                 <div className="mb-4">
-                                                    <h3 className="text-2xl font-bold font-heading text-white mb-1 group-hover:text-glow-red transition-all">{car.carName}</h3>
+                                                    <h3 className="text-2xl font-bold font-heading text-white mb-1 group-hover:text-glow-red transition-all">{car.title}</h3>
                                                 </div>
                                                 <div className="space-y-3 mb-2 flex-1">
                                                     <div>
-                                                        <p className="text-[10px] text-white/40 uppercase tracking-wider mb-1">Reason / Details</p>
-                                                        <p className="text-sm italic text-white/70 whitespace-pre-wrap">{car.description}</p>
-                                                    </div>
+
+    <div className="flex items-center justify-between mb-3">
+
+        <p className="text-[10px] uppercase tracking-[0.3em] text-white/40">
+
+            Registry
+
+        </p>
+
+        <span className="text-[11px] text-neon-red font-bold">
+
+            {(car.vehicles || "")
+                .split("\n")
+                .filter(v => v.trim())
+                .length}
+
+            {" "}Vehicles
+
+        </span>
+
+    </div>
+
+    <p className="text-sm italic text-white/70 whitespace-pre-wrap mb-5">
+
+        {car.description}
+
+    </p>
+
+    <div
+        className={`
+            flex
+            flex-wrap
+            gap-2
+
+            overflow-hidden
+
+            transition-all
+            duration-500
+
+            ${
+                expandedCards[car._id]
+                    ? ""
+                    : "max-h-[96px]"
+            }
+        `}
+    >
+
+        {(car.vehicles || "")
+            .split("\n")
+            .filter(v => v.trim())
+            .map((vehicle, index) => (
+
+                <span
+                    key={index}
+                    className="
+                        px-3
+                        py-2
+                        rounded-lg
+                        bg-white/5
+                        border
+                        border-white/10
+                        text-xs
+                        text-neon-red
+                        font-semibold
+                        hover:border-neon-red
+                        hover:bg-neon-red
+                        hover:text-white
+                        transition-all
+                        duration-500
+                    "
+                >
+
+                    {vehicle}
+
+                </span>
+
+            ))}
+
+    </div>
+
+    {(car.vehicles || "")
+        .split("\n")
+        .filter(v => v.trim())
+        .length > 8 && (
+
+        <button
+
+            onClick={() => toggleCard(car._id)}
+
+            className="
+                mt-5
+                w-full
+                rounded-xl
+                border
+                border-white/10
+                bg-white/5
+                py-3
+                text-xs
+                font-bold
+                uppercase
+                tracking-[0.3em]
+                transition-all
+                hover:border-neon-red
+                hover:bg-neon-red/10
+            "
+
+        >
+
+            {expandedCards[car._id]
+
+                ? "▲ Show Less"
+
+                : "▼ Show All Vehicles"}
+
+        </button>
+
+    )}
+
+</div>
                                                     {isAdmin && car.sourceLibraryId && (
                                                         <div className="mt-2">
                                                             <span className="text-[10px] py-1 px-2 border border-neon-blue/30 text-neon-blue bg-neon-blue/10 rounded uppercase tracking-wider font-bold">
