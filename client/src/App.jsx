@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Users, CalendarDays, Camera, ArrowUp } from "lucide-react";
-
+import FooterBG from "/footer.png";
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import { Routes, Route, useLocation } from 'react-router-dom';
@@ -209,9 +209,49 @@ Promise.all([
 
 <footer className="relative overflow-hidden border-t border-white/10 bg-[#090909]">
 
+{/* Background Image */}
 
+<div className="absolute inset-0 z-0 overflow-hidden">
+
+    <img
+        src={FooterBG}
+        alt=""
+        className="
+            h-full
+            w-full
+            object-cover
+
+            opacity-25
+
+            blur-[2px]
+
+            scale-110
+
+            select-none
+            pointer-events-none
+        "
+    />
+
+</div>
+{/* 
+<div
+    className="
+        absolute
+        inset-0
+        z-0
+
+        bg-gradient-to-b
+
+        from-deep-black/50
+
+        via-deep-black/25
+
+        to-[#050505]
+    "
+/>
+*/}
     {/* Background Glow */}
-    <div className="absolute inset-0 pointer-events-none">
+<div className="absolute inset-0 z-[1] pointer-events-none">
 
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-neon-purple/10 blur-[140px]" />
         <div className="absolute left-0 top-1/2 w-72 h-72 bg-electric-blue/5 blur-[160px]" />
@@ -339,15 +379,11 @@ text-center
 
 rounded-xl
 
-border
-border-white/10
-
-bg-white/[0.02]
-
-hover:border-neon-purple/40
+bg-transparent
 
 hover:-translate-y-3
 hover:scale-[1.03]
+hover:backdrop-blur-md
 
 transition-all
 duration-500
@@ -358,7 +394,7 @@ group
     <div className="
 absolute
 -top-10
--right-10
+-left-10
 
 w-32
 h-32
@@ -388,7 +424,9 @@ text-8xl
 
 font-black
 
-text-white/[0.03]
+text-white/[0.005]
+
+group-hover:text-white/20
 
 select-none
 
@@ -429,15 +467,11 @@ text-center
 
 rounded-xl
 
-border
-border-white/10
-
-bg-white/[0.02]
-
-hover:border-electric-blue/40
+bg-transparent
 
 hover:-translate-y-3
 hover:scale-[1.03]
+hover:backdrop-blur-md
 
 transition-all
 duration-500
@@ -448,7 +482,7 @@ group
     <div className="
 absolute
 -top-10
--right-10
+-left-10
 
 w-32
 h-32
@@ -478,7 +512,9 @@ text-8xl
 
 font-black
 
-text-white/[0.03]
+text-white/[0.005]
+
+group-hover:text-white/20
 
 select-none
 
@@ -517,15 +553,11 @@ text-center
 
 rounded-xl
 
-border
-border-white/10
-
-bg-white/[0.02]
-
-hover:border-neon-green/40
+bg-transparent
 
 hover:-translate-y-3
 hover:scale-[1.03]
+hover:backdrop-blur-md
 
 transition-all
 duration-500
@@ -536,7 +568,7 @@ group
     <div className="
 absolute
 -top-10
--right-10
+-left-10
 
 w-32
 h-32
@@ -566,7 +598,9 @@ text-8xl
 
 font-black
 
-text-white/[0.03]
+text-white/[0.005]
+
+group-hover:text-white/20
 
 select-none
 
@@ -605,15 +639,11 @@ text-center
 
 rounded-xl
 
-border
-border-white/10
-
-bg-white/[0.02]
-
-hover:border-white/40
+bg-transparent
 
 hover:-translate-y-3
 hover:scale-[1.03]
+hover:backdrop-blur-md
 
 transition-all
 duration-500
@@ -624,14 +654,14 @@ group
     <div className="
 absolute
 -top-10
--right-10
+-left-10
 
 w-32
 h-32
 
 rounded-full
 
-bg-white
+bg-oracle-gold
 
 blur-3xl
 
@@ -654,7 +684,9 @@ text-8xl
 
 font-black
 
-text-white/[0.03]
+text-white/[0.005]
+
+group-hover:text-white/20
 
 select-none
 
@@ -674,11 +706,11 @@ group-hover:rotate-12 transition">
                     🎮
                 </div>
 
-                <h3 className="text-5xl group-hover:scale-125 group-hover:rotate-12 font-black bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r from-white to-black transition">
+                <h3 className="text-5xl group-hover:scale-125 group-hover:rotate-12 font-black bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r from-oracle-gold to-black transition">
                     PC
                 </h3>
 
-                <p className="mt-2 text-xs uppercase tracking-[0.3em] group-hover:rotate-12 text-white/40 group-hover:text-white transition">
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] group-hover:rotate-12 text-white/40 group-hover:text-oracle-gold transition">
                     Platform
                 </p>
 
@@ -767,7 +799,7 @@ group-hover:rotate-12 transition">
                         behavior: "smooth",
                     })
                 }
-                className="w-11 h-11 rounded-full hover:border-white hover:bg-gradient-to-r from-neon-purple/80 to-electric-blue/80 transition flex items-center justify-center group"
+                className="w-11 h-11 rounded-full hover:border-white hover:bg-gradient-to-b from-neon-purple/80 via-electric-blue/80 to-neon-green/80 transition flex items-center justify-center group"
             >
 
                 <ArrowUp
