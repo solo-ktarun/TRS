@@ -296,19 +296,19 @@ mb-6
 "
 >
 
-<div className="glass-panel px-4 py-2 text-xs uppercase tracking-widest text-[#FFD700]/50 group-hover:bg-[#FFD700]/50 group-hover:text-white transition-all duration-500">
+<div className="glass-panel px-4 py-2 text-xs uppercase tracking-widest text-[#FFD700]/80 group-hover:bg-[#FFD700]/50 group-hover:text-white transition-all duration-500">
 Official Time
 </div>
 
-<div className="glass-panel px-4 py-2 text-xs uppercase tracking-widest text-white/50 group-hover:bg-white/50 group-hover:text-white transition-all duration-500">
+<div className="glass-panel px-4 py-2 text-xs uppercase tracking-widest text-white/80 group-hover:bg-white/50 group-hover:text-white transition-all duration-500">
 Saturday
 </div>
 
-<div className="glass-panel px-4 py-2 text-xs uppercase tracking-widest text-electric-blue/50 group-hover:bg-electric-blue/50 group-hover:text-white transition-all duration-500">
+<div className="glass-panel px-4 py-2 text-xs uppercase tracking-widest text-electric-blue/80 group-hover:bg-electric-blue/50 group-hover:text-white transition-all duration-500">
 10:00 PM IST
 </div>
 
-<div className="glass-panel px-4 py-2 text-xs uppercase tracking-widest text-neon-purple/50 group-hover:bg-neon-purple/50 group-hover:text-white transition-all duration-500">
+<div className="glass-panel px-4 py-2 text-xs uppercase tracking-widest text-neon-purple/80 group-hover:bg-neon-purple/50 group-hover:text-white transition-all duration-500">
 PC Platform
 </div>
 

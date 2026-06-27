@@ -390,10 +390,10 @@ const toggleCard = (id) => {
 
 </div>
 
-<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 group">
 
     <div className="glass-panel p-4 text-center">
-        <div className="text-2xl font-black text-green-400">
+        <div className="text-2xl font-black text-neon-green">
             {validCarsList.length}
         </div>
         <div className="text-xs uppercase tracking-widest text-white/50">
@@ -599,7 +599,7 @@ Stirling GT`}
     isValid: true
 }))}
                                 />
-                                <span className="text-green-400 font-bold">Approved Vehicles</span>
+                                <span className="text-neon-green font-bold">Approved Vehicles</span>
                             </label>
                             <label className="flex items-center gap-2 cursor-pointer">
                                 <input 
@@ -740,8 +740,8 @@ Stirling GT`}
                     {validCarsList.length > 0 && (
                         <div>
                             <div className="flex items-center justify-center gap-3 mb-8">
-                                <CheckCircle className="text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]" size={28} />
-                                <h2 className="text-3xl font-bold font-heading text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]">Approved Vehicles</h2>
+                                <CheckCircle className="text-neon-green drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]" size={28} />
+                                <h2 className="text-3xl font-bold font-heading text-neon-green drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]">Approved Vehicles</h2>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                   {validCarsList.slice(0, visibleValidCount).map((car, idx) => (
@@ -762,45 +762,45 @@ duration-300
 "
                                     >
                                         <div className="absolute -inset-0.5 bg-gradient-to-br from-green-500 to-green-900 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
-                                        <div className="relative h-full glass-panel bg-black/80 rounded-lg overflow-hidden border border-green-500/30 hover:border-green-400/60 transition-colors flex flex-col">
+                                        <div className="relative h-full glass-panel bg-black/80 rounded-lg overflow-hidden border border-green-500/30 hover:border-neon-greetext-neon-green/60 transition-colors flex flex-col">
                                             <div className="relative h-64 overflow-hidden mask-image-b group-hover:mask-image-none transition-all duration-500 bg-deep-black/50 shrink-0">
                                                 {isAdmin && (
                                                     <div className="absolute top-4 right-4 z-20 flex gap-2">
                                                         <button onClick={() => handleEdit(car)} className="
 p-2
 
-bg-black/60
+bg-transparent
 
 hover:bg-electric-blue
 hover:scale-110
-
-text-white
+text-electric-blue
+hover:text-white
 
 rounded-full
 
 transition-all
 duration-300
 
-backdrop-blur-md
+backdrop-blur-sm
 ">
                                                             <Edit2 size={16} />
                                                         </button>
                                                         <button onClick={() => handleDelete(car._id, car.title)} className="
 p-2
 
-bg-black/60
+bg-transparent
 
 hover:bg-neon-red
 hover:scale-110
-
-text-white
+text-neon-red
+hover:text-white
 
 rounded-full
 
 transition-all
 duration-300
 
-backdrop-blur-md
+backdrop-blur-sm
 ">
                                                             <Trash2 size={16} />
                                                         </button>
@@ -824,7 +824,7 @@ backdrop-blur-md
 
         </p>
 
-        <span className="text-[11px] text-neon-purple font-bold">
+        <span className="text-[11px] text-neon-green font-bold">
 
             {car.vehicles
                 .split("\n")
@@ -891,13 +891,13 @@ backdrop-blur-md
 
                         text-xs
 
-                        text-neon-purple
+                        text-neon-green
 
                         font-semibold
 
-                        hover:border-neon-purple
+                        hover:border-neon-green
 
-                        hover:bg-neon-purple
+                        hover:bg-neon-green
                         
                         hover:text-white
 
@@ -933,12 +933,15 @@ backdrop-blur-md
         bg-white/5
         py-3
         text-xs
+        text-neon-green
         font-bold
         uppercase
         tracking-[0.3em]
         transition-all
-        hover:border-neon-purple
-        hover:bg-neon-purple/10
+        duration-300
+        hover:border-neon-green
+        hover:bg-neon-green
+        hover:text-white
     "
 
 >
@@ -982,7 +985,7 @@ backdrop-blur-md
                                                   });
                                               }, 5);
                                           }}
-                                          className="px-6 py-3 border border-white/20 hover:border-green-400 hover:text-green-400 transition-all uppercase tracking-widest text-sm font-bold rounded-sm text-white"
+                                          className="px-6 py-3 border border-white/20 hover:border-neon-greetext-neon-green hover:text-neon-green transition-all uppercase tracking-widest text-sm font-bold rounded-sm text-white"
                                       >
                                           Load More
                                       </button>
@@ -1020,10 +1023,42 @@ duration-300
                                             <div className="relative h-64 overflow-hidden mask-image-b group-hover:mask-image-none transition-all duration-500 bg-deep-black/50 shrink-0">
                                                 {isAdmin && (
                                                     <div className="absolute top-4 right-4 z-20 flex gap-2">
-                                                        <button onClick={() => handleEdit(car)} className="p-2 bg-black/60 hover:bg-electric-blue/80 text-white rounded-full transition-colors backdrop-blur-md">
+                                                        <button onClick={() => handleEdit(car)} className="
+p-2
+
+bg-transparent
+
+hover:bg-electric-blue
+hover:scale-110
+text-electric-blue
+hover:text-white
+
+rounded-full
+
+transition-all
+duration-300
+
+backdrop-blur-sm
+">
                                                             <Edit2 size={16} />
                                                         </button>
-                                                        <button onClick={() => handleDelete(car._id, car.title)} className="p-2 bg-black/60 hover:bg-neon-red/80 text-white rounded-full transition-colors backdrop-blur-md">
+                                                        <button onClick={() => handleDelete(car._id, car.title)} className="
+p-2
+
+bg-transparent
+
+hover:bg-neon-red
+hover:scale-110
+text-neon-red
+hover:text-white
+
+rounded-full
+
+transition-all
+duration-300
+
+backdrop-blur-sm
+">
                                                             <Trash2 size={16} />
                                                         </button>
                                                     </div>
@@ -1136,11 +1171,14 @@ duration-300
                 py-3
                 text-xs
                 font-bold
+                text-neon-red
                 uppercase
                 tracking-[0.3em]
                 transition-all
+                duration-300
                 hover:border-neon-red
-                hover:bg-neon-red/10
+                hover:bg-neon-red
+                hover:text-white
             "
 
         >

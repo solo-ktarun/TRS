@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import TRSLogo from "/TRS_LOGO.png";
-import LoadingBackground from "/loading.jpg";
+import LoadingBackground from "/loading1.jpg";
 
 const loadingSteps = [
   "Initializing Crew Network...",

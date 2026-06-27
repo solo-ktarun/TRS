@@ -318,7 +318,7 @@ flex-col
                                 <button 
                                     onClick={(e) => { e.stopPropagation(); moveMeet(index, 'up'); }} 
                                     disabled={index === 0} 
-                                    className="p-2 bg-black/60 hover:bg-neon-purple/50 text-neon-purple hover:text-white rounded-lg transition-all duration-500 backdrop-blur-md z-30 relative disabled:opacity-30 disabled:cursor-not-allowed"
+                                    className="p-2 bg-transparent hover:bg-neon-purple/80 text-neon-purple hover:text-white rounded-lg transition-all duration-500 backdrop-blur-sm z-30 relative disabled:opacity-30 disabled:cursor-not-allowed"
                                     title="Move Earlier"
                                 >
                                     <ChevronLeft size={16} />
@@ -326,7 +326,7 @@ flex-col
                                 <button 
                                     onClick={(e) => { e.stopPropagation(); moveMeet(index, 'down'); }} 
                                     disabled={index === meets.length - 1} 
-                                    className="p-2 bg-black/60 hover:bg-neon-purple/50 text-neon-purple hover:text-white rounded-lg transition-all duration-500 backdrop-blur-md z-30 relative disabled:opacity-30 disabled:cursor-not-allowed"
+                                    className="p-2 bg-transparent hover:bg-neon-purple/80 text-neon-purple hover:text-white rounded-lg transition-all duration-500 backdrop-blur-sm z-30 relative disabled:opacity-30 disabled:cursor-not-allowed"
                                     title="Move Later"
                                 >
                                     <ChevronRight size={16} />
@@ -334,7 +334,7 @@ flex-col
                                 <button onClick={(e) => { 
                                     e.stopPropagation(); 
                                     navigate('/admin/add-meet', { state: { editMeet: meet } }); 
-                                }} className="p-2 bg-black/60 hover:bg-electric-blue/80 text-electric-blue hover:text-white rounded-lg transition-all duration-500 backdrop-blur-md z-30 relative">
+                                }} className="p-2 bg-transparent hover:bg-electric-blue/80 text-electric-blue hover:text-white rounded-lg transition-all duration-500 backdrop-blur-sm z-30 relative">
                                     <Edit2 size={16} />
                                 </button>
                                 <button onClick={async (e) => {
@@ -347,7 +347,7 @@ flex-col
                                             await logAdminAction('Deleted Meet', `Theme: ${meet.theme}`);
                                         }
                                     } catch (err) { console.error(err); }
-                                }} className="p-2 bg-black/60 hover:bg-neon-red/80 text-neon-red hover:text-white rounded-lg transition-all duration-500 backdrop-blur-md z-30 relative">
+                                }} className="p-2 bg-transparent hover:bg-neon-red/80 text-neon-red hover:text-white rounded-lg transition-all duration-500 backdrop-blur-sm z-30 relative">
                                     <Trash2 size={16} />
                                 </button>
                             </div>
