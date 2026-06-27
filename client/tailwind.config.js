@@ -19,9 +19,10 @@ export default {
         'oracle-gold': '#FFD700',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        heading: ['Outfit', 'sans-serif'],
-      },
+  sans: ['DM Sans', 'sans-serif'],          // Body, cards, UI
+  heading: ['Space Grotesk', 'sans-serif'], // Hero, titles
+  display: ['Space Grotesk', 'sans-serif'], // Stats, countdowns, percentages
+},
       scale: {
         '103': '1.03',
       },

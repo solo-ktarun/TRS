@@ -178,35 +178,6 @@ const scrollToSection = (id) => {
     TRS
 </div>
 
-<div
-    className="
-    absolute
-    top-[50%]
-    left-[50%]
-
-    -translate-x-1/2
-    -translate-y-1/2
-
-    text-[36vw]
-
-    font-black
-    font-heading
-
-    pointer-events-none
-    select-none
-
-    z-0
-    "
-    style={{
-        color: '#b026ff',
-        opacity: 0.06,
-        filter: 'blur(50px)',
-        letterSpacing: '0.15em'
-    }}
->
-    TRS
-</div>
-
 
             {/* --- Left Side: Content --- */}
             <div className="w-full lg:w-[45%] lg:min-h-[100svh] flex flex-col justify-center px-6 sm:px-12 lg:pl-16 xl:pl-24 pt-10 pb-16 lg:py-0 z-20 relative shrink-0">
@@ -677,11 +648,11 @@ transition-transform
                         animate="visible"
                         className="absolute left-[0%] top-[48%] w-[45%] lg:w-[45%] z-10 group transform transition-transform duration-500 hover:z-50 group-hover:shadow-[0_0_80px_rgba(176,38,255,0.45)] group-hover:scale-[1.02] hover:translate-z-10 hover:border-neon-purple/50 hover:shadow-[0_0_20px_rgba(176,38,255,0.25)]"
                     >
-                        <div className="absolute -inset-2 bg-gradient-to-r from-neon-purple/40 via-transparent to-neon-purple/40 blur-xl  opacity-0 group-hover:opacity-80 transition-opacity duration-\00"></div>
+                        <div className="absolute -inset-2 bg-gradient-to-r from-neon-purple/40 via-transparent to-neon-purple/40 blur-xl  opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
                         <div className="relative w-full aspect-[4/3] bg-black rounded-lg shadow-[0_20px_40px_rgba(0,0,0,0.8)] border border-white/5 overflow-hidden">
-                            <img src={heroData.leftSideImage} alt="Night Drive Atmosphere" className="w-full h-full object-cover object-center opacity-25 group-hover:opacity-100 group-hover:saturate-100 transition-all duration-700 group-hover:scale-[1.03]" />
-<div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
-                            <div className=" absolute top-4 left-4 glass-panel px-3 py-2 text-[10px] font-bold uppercase tracking-[0.25em] border border-white/10 text-white/50 group-hover:text-white transition-all duration-700">
+                            <OptimizedImage src={heroData.leftSideImage} alt="Night Drive Atmosphere" className="w-full h-full object-cover object-center opacity-25 group-hover:opacity-100 group-hover:saturate-100 transition-all duration-700 group-hover:scale-[1.03]" />
+<div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" />
+                            <div className=" absolute bottom-4 left-4 glass-panel px-3 py-2 text-[10px] font-bold uppercase tracking-[0.25em] translate-x-0 translate-y-0 border border-white/10 text-white/50 group-hover:text-white transition-all duration-700">
 NIGHT DRIVE
 </div>
 
@@ -699,7 +670,7 @@ NIGHT DRIVE
                     >
                         <div className="absolute -inset-2 bg-gradient-to-l from-neon-purple/40 via-transparent to-neon-purple/40 blur-xl opacity-0 group-hover:opacity-80 transition-opacity duration-500"></div>
                         <div className="relative w-full aspect-square sm:aspect-[4/3] bg-black rounded-lg shadow-[0_20px_40px_rgba(0,0,0,0.8)] border border-white/5 overflow-hidden">
-                            <img src={heroData.rightSideImage} alt="Meet Scene" className="w-full h-full object-cover object-center opacity-25
+                            <OptimizedImage src={heroData.rightSideImage} alt="Meet Scene" className="w-full h-full object-cover object-center opacity-25
 
 group-hover:opacity-100
 group-hover:saturate-100
@@ -713,6 +684,8 @@ absolute
 top-4
 right-4
 
+translate-y-0
+translate-x-0
 glass-panel
 
 px-3
@@ -775,8 +748,8 @@ pointer-events-none
                             <div className="absolute top-0 inset-x-0 h-1/2 bg-gradient-to-b from-white/20 to-transparent mix-blend-overlay pointer-events-none"></div>
 
                             {/* Info Plate Overlay */}
-                            <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 bg-gradient-to-t from-black via-black/80 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                <div className="inline-block px-2 py-1 bg-white/10 backdrop-blur-md rounded border border-white/20 mb-2">
+                            <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 bg-gradient-to-t from-black via-black/80 to-transparent -translate-x-2 translate-y-4 transition-all duration-500">
+                                <div className="inline-block px-2 py-1 bg-black backdrop-blur-md rounded border border-white/20 mb-2">
                                     <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-widest text-white text-white/50 group-hover:text-white transition-all duration-700">TRS Crew</span>
                                 </div>
                             </div>
@@ -824,7 +797,7 @@ group-hover:tracking-wide
 
     <div className="relative h-[180px] overflow-hidden">
 
-        <img
+        <OptimizedImage
     src="/joyboy.jpg"
     alt="Founder"
     className="
@@ -952,7 +925,7 @@ group-hover:bg-electric-blue/50
 group-hover:text-white
 
 transition-all
-duration-500heroData.partnerRole"
+duration-50"
 >
 2024
 </span>
@@ -981,7 +954,7 @@ duration-500heroData.partnerRole"
             tracking-widest
             text-white/60
             group-hover:text-white
-            transiiton-all
+            transition-all
             duration-500
             ">
                 Meet Radar
@@ -1044,7 +1017,7 @@ hover:shadow-[0_0_35px_rgba(176,38,255,0.35)]
 
     <div className="relative h-[180px] overflow-hidden">
 
-        <img
+        <OptimizedImage
             src={heroData.partnerImage}
             alt="Partner"
             className="
@@ -1172,7 +1145,7 @@ duration-500
             text-white/60
 
             group-hover:text-white
-            transiiton-all
+            transition-all
             duration-500
             
             "

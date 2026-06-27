@@ -211,6 +211,12 @@ return (
                         tracking-[0.35em]
 
                         text-neon-purple
+
+                        hover:text-white
+                        hover:bg-neon-purple
+                        hover:tracking-[0.5em]
+                        transition-all
+                        duration-500
                     "
                 >
 
@@ -340,6 +346,10 @@ return (
                         tracking-[0.45em]
 
                         text-white/45
+
+                        hover:text-white/90
+                        transition-all
+                        duration-500
                     "
                 >
 
@@ -463,13 +473,9 @@ return (
                             <div
                                 key={stat.label}
                                 className="
-                                    glass-panel
+                                    bg-transparent
 
                                     rounded-2xl
-
-                                    border
-
-                                    border-white/50
 
                                     py-5
 
@@ -481,7 +487,7 @@ return (
 
                                     hover:-translate-y-1
 
-                                    hover:border-neon-purple/60
+                                    hover:bg-neon-purple/10
                                 "
                             >
 
@@ -511,7 +517,7 @@ return (
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1 }}
-                    className="mt-10 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/30"
+                    className="mt-10 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-white/30 hover:text-white/80 transition-all duration-500"
                 >
 
                     <span>TRS Crew Portal</span>
