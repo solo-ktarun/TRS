@@ -309,45 +309,11 @@ server/
 
 ---
 
-# Development
-
-Install dependencies
-
-```bash
-npm install
-```
-
-Frontend
-
-```bash
-npm run dev
-```
-
-Backend
-
-```bash
-node server.js
-```
-
----
-
 # License
 
 This project is maintained exclusively for **The Royal Sorcerers (TRS)** GTA Online community.
 
 Unauthorized commercial redistribution is not permitted.
-
----
-
-# Credits
-
-**Website & Operations**
-
-Tarun
-
-**Founder**
-
-JoyBoy
 
 ---
 
