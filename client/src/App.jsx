@@ -424,7 +424,7 @@ text-8xl
 
 font-black
 
-text-white/[0.005]
+text-white/[0.05]
 
 group-hover:text-white/20
 
@@ -512,7 +512,7 @@ text-8xl
 
 font-black
 
-text-white/[0.005]
+text-white/[0.05]
 
 group-hover:text-white/20
 
@@ -598,7 +598,7 @@ text-8xl
 
 font-black
 
-text-white/[0.005]
+text-white/[0.05]
 
 group-hover:text-white/20
 
@@ -684,7 +684,7 @@ text-8xl
 
 font-black
 
-text-white/[0.005]
+text-white/[0.05]
 
 group-hover:text-white/20
 
