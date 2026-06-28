@@ -426,7 +426,7 @@ font-black
 
 text-white/[0.05]
 
-group-hover:text-white/20
+group-hover:text-white/25
 
 select-none
 
@@ -514,7 +514,7 @@ font-black
 
 text-white/[0.05]
 
-group-hover:text-white/20
+group-hover:text-white/25
 
 select-none
 
@@ -600,7 +600,7 @@ font-black
 
 text-white/[0.05]
 
-group-hover:text-white/20
+group-hover:text-white/25
 
 select-none
 
@@ -686,7 +686,7 @@ font-black
 
 text-white/[0.05]
 
-group-hover:text-white/20
+group-hover:text-white/25
 
 select-none
 
@@ -786,7 +786,7 @@ group-hover:rotate-12 transition">
 
             </div>
 
-            <div className="text-white/20 text-xs uppercase tracking-[0.25em] hover:text-white transition-all duration-500">
+            <div className="text-white/25 text-xs uppercase tracking-[0.25em] hover:text-white transition-all duration-500">
 
                 Developed & Designed by <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-blue via-neon-purple to-neon-green bg-[length:400%_auto] animate-gradient-x"> Joyboy & Tarun</span>
 
