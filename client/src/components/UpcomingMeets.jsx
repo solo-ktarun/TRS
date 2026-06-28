@@ -80,7 +80,6 @@ useEffect(() => {
         try {
             const response = await fetch(`${API_URL}/meets`);
             const data = await response.json()
-            console.log("MEETS FROM API:", data);
             setMeets(data);
             setLoading(false);
         } catch (error) {
