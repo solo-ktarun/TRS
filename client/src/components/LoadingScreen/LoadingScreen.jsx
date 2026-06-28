@@ -394,13 +394,14 @@ bg-[url('/noise.png')]
                         mt-8
 
                         text-center
+                        text-white
 
                         text-4xl
                         md:text-5xl
 
                         font-heading
 
-                        font-black
+                        font-bold
 
                         uppercase
 
