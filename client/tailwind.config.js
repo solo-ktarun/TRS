@@ -18,10 +18,9 @@ export default {
         'electric-blue': '#00e5ff',
         'oracle-gold': '#FFD700',
       },
-      fontFamily: {
-  sans: ['DM Sans', 'sans-serif'],          // Body, cards, UI
-  heading: ['Space Grotesk', 'sans-serif'], // Hero, titles
-  display: ['Space Grotesk', 'sans-serif'], // Stats, countdowns, percentages
+      fontFamily:{
+    heading:['Outfit','sans-serif'],
+    body:['Inter','sans-serif']
 },
       scale: {
         '103': '1.03',
