@@ -397,7 +397,7 @@ const toggleCard = (id) => {
             {validCarsList.length}
         </div>
         <div className="text-xs uppercase tracking-widest text-white/50">
-            Approved
+            Approved Cards
         </div>
     </div>
 
@@ -406,7 +406,7 @@ const toggleCard = (id) => {
             {invalidCarsList.length}
         </div>
         <div className="text-xs uppercase tracking-widest text-white/50">
-            Restricted
+            Restricted Cards
         </div>
     </div>
 
