@@ -456,34 +456,9 @@ duration-500" />
                     </div>
                     <div className="flex flex-col justify-center">
     <span className={`font-heading font-black text-[12px] sm:text-sm md:text-lg ${scrolled ? "lg:text-xl" : "lg:text-2xl"} tracking-widest sm:tracking-[0.2em] text-white group-hover:text-glow group-hover:tracking-[0.28em] drop-shadow-[0_0_20px_rgba(255,255,255,.25)] leading-none transition-all whitespace-nowrap duration-500 overflow-hidden text-ellipsis`}>
-        <AnimatePresence mode="wait">
-
-<motion.span
-    key={scrolled ? "small" : "large"}
-
-    initial={{
-        opacity:0,
-        y:10
-    }}
-
-    animate={{
-        opacity:1,
-        y:0
-    }}
-
-    exit={{
-        opacity:0,
-        y:-10
-    }}
-
-    transition={{
-        duration:.25
-    }}
->
-    {scrolled ? "TRS" : "TRS Crew"}
-</motion.span>
-
-</AnimatePresence>
+                {scrolled
+    ? "TRS"
+    : "TRS Crew"}
     </span>
 
     <span className="hidden md:block text-[10px] uppercase tracking-[0.35em] text-white/40 mt-1 group-hover:text-electric-blue/60 transition-all duration-500">
