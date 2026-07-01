@@ -131,24 +131,7 @@ hover:translate-x-1
 
     return (
 <>
-<motion.nav
-initial={{
-    opacity: 0,
-    y: -40,
-    scale: 0.97
-}}
-
-animate={{
-    opacity: 1,
-    y: 0,
-    scale: 1
-}}
-
-transition={{
-    duration: 0.9,
-    ease: [0.16, 1, 0.3, 1]
-}}
-
+<nav
 className={`
 fixed
 top-4
@@ -175,10 +158,12 @@ xl:bg-transparent
 xl:backdrop-blur-lg
 
 bg-gradient-to-r
-from-black/25
-via-black/10
-to-black/25
 
+from-black/25
+
+via-black/10
+
+to-black/25
 backdrop-blur-2xl
 
 border
@@ -194,10 +179,12 @@ py-5
 xl:bg-transparent
 
 bg-gradient-to-r
-from-black/25
-via-black/10
-to-black/25
 
+from-black/25
+
+via-black/10
+
+to-black/25
 backdrop-blur-2xl
 
 border
@@ -973,7 +960,7 @@ mobileMenuOpen
     </button>
 </div>
             </div>                
-        </motion.nav>
+        </nav>
 
         {/* Mobile Menu */}
             <div
