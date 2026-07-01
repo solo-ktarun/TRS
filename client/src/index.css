@@ -4,23 +4,151 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+
+  /* ===== Brand Colors ===== */
+
+  --bg-primary:#050505;
+  --bg-secondary:#0b0b0f;
+  --bg-card:rgba(15,15,20,.72);
+
+  --purple:#b026ff;
+  --purple-light:#d07bff;
+
+  --blue:#00e5ff;
+  --blue-light:#70f4ff;
+
+  --gold:#FFD166;
+  --green:#5CCF45;
+  --red:#ff4d6d;
+
+  /* ===== Borders ===== */
+
+  --border-soft:rgba(255,255,255,.08);
+  --border-medium:rgba(255,255,255,.12);
+  --border-strong:rgba(255,255,255,.18);
+
+  /* ===== Shadows ===== */
+
+  --shadow-soft:
+  0 10px 30px rgba(0,0,0,.35);
+
+  --shadow-card:
+  0 20px 45px rgba(0,0,0,.45);
+
+  --shadow-purple:
+  0 0 30px rgba(176,38,255,.22);
+
+  --shadow-blue:
+  0 0 30px rgba(0,229,255,.18);
+
+  /* ===== Radius ===== */
+
+  --radius:22px;
+
+}
+
 @layer base {
 body{
+
 font-family:'Inter',sans-serif;
+
+background:
+radial-gradient(circle at top,
+rgba(176,38,255,.05),
+transparent 30%),
+
+radial-gradient(circle at bottom right,
+rgba(0,229,255,.04),
+transparent 35%),
+
+#050505;
+
+color:white;
+
+letter-spacing:.01em;
+
+text-rendering:optimizeLegibility;
+
+-webkit-font-smoothing:antialiased;
+
+overflow-x:hidden;
+
+}
+
+*{
+
+transition:
+
+background-color .3s ease,
+
+border-color .3s ease,
+
+box-shadow .3s ease,
+
+transform .35s cubic-bezier(.22,.61,.36,1);
+
 }
 
 h1,h2,h3,h4,h5,h6{
+
 font-family:'Outfit',sans-serif;
+
+letter-spacing:-0.03em;
+
+font-weight:700;
+
+line-height:1.05;
+
 }
 }
 
 @layer utilities {
-  .glassmorphism {
-    @apply bg-black/40 backdrop-blur-md border border-white/10;
-  }
+.glassmorphism{
+
+background:
+
+linear-gradient(
+
+180deg,
+
+rgba(0, 0, 0, 0.06),
+
+rgba(0, 0, 0, 0.02)
+
+);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+
+var(--shadow-card),
+
+inset 0 1px rgba(255,255,255,.08);
+
+border-radius:22px;
+
+}
 /* Utilities */
 .glass-panel {
-  @apply bg-[#0a0a0a]/80 backdrop-blur-md border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)];
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  border-radius: 22px;
 }
 
 .animate-pulse-slow {
@@ -59,10 +187,6 @@ font-family:'Outfit',sans-serif;
     animation: float-slow 15s ease-in-out infinite;
   }
 
-  .animate-pulse-slow {
-    animation: pulse-slow 4s ease-in-out infinite;
-  }
-
   .animate-scanline {
     animation: scanline 3s linear infinite;
   }
@@ -81,9 +205,15 @@ font-family:'Outfit',sans-serif;
   .translate-z-30 { transform: translateZ(30px); }
   .translate-z-40 { transform: translateZ(40px); }
 
-  .neon-glow {
-    filter: drop-shadow(0 0 10px rgba(176, 38, 255, 0.5));
-  }
+.neon-glow{
+
+filter:
+
+drop-shadow(0 0 8px rgba(176,38,255,.45))
+
+drop-shadow(0 0 18px rgba(176,38,255,.25));
+
+}
   .neon-glow-blue {
     filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.5));
   }
@@ -112,10 +242,12 @@ font-family:'Outfit',sans-serif;
 
 .gradient-text {
   background: linear-gradient(
-    90deg,
     #a855f7,
     #00d4ff
   );
+  background-size:200% auto;
+
+animation:gradientMove 6s linear infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -148,7 +280,7 @@ font-family:'Outfit',sans-serif;
     }
 
     50% {
-        transform: translateY(-2px);
+        transform: translateY(-6px);
     }
 
     100% {
@@ -205,13 +337,30 @@ font-family:'Outfit',sans-serif;
     box-shadow: 0 0 12px rgba(255, 209, 102, 0.7);
 }
 
-.hero-button:hover {
-    transform: translateY(-3px);
+.hero-button{
+
+transition:.35s;
+
+}
+
+.hero-button:hover{
+
+transform:
+
+translateY(-5px)
+
+scale(1.03);
+
+box-shadow:
+
+0 18px 40px rgba(176,38,255,.25);
+
 }
 
 ::selection {
-    background: rgba(124, 58, 237, 0.4);
-    color: white;
+    background:#b026ff;
+
+color:#fff;
 }
 
 @keyframes gradientMove {
@@ -258,4 +407,18 @@ font-family:'Outfit',sans-serif;
 
 .animate-hero-float {
   animation: heroFloat 8s ease-in-out infinite;
+}
+
+.navbar-transition{
+
+transition:
+
+background .5s ease,
+
+border-color .4s ease,
+
+transform .45s cubic-bezier(.22,.61,.36,1),
+
+box-shadow .5s ease;
+
 }
